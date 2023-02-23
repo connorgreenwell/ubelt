@@ -286,7 +286,10 @@ def cmd(command, shell=False, detach=False, verbose=0, tee=None, cwd=None,
                 log('+=== START CMD ===')
         cwd_ = os.getcwd() if cwd is None else cwd
         compname = platform.node()
-        username = getpass.getuser()
+        try:
+            username = getpass.getuser()
+        except:
+            username = str(os.getuid())
         cwd_ = shrinkuser(cwd_)
         ps1 = '[ubelt.cmd] {}@{}:{}$ '.format(username, compname, cwd_)
         log(ps1 + command_text)
